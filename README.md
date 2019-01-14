@@ -7,9 +7,6 @@ https://blog.csdn.net/alexwym/article/details/81223764
 
 (If you don't want to read English introduction,you also can read this blog...)
 
-If you have any question, welcome to communicate me.Here is my qq:952877313.
-
-
 一、Function
 This is a simple Chatroom.It support the most basic funtion that sends messages.
 
@@ -52,3 +49,5 @@ Here,You can change the default user and password
 
 ![image](https://github.com/Alexlingl/Chatroom/blob/master/images/user_code.png)
 
+
+If you have any question, welcome to communicate me.Here is my qq:952877313.
