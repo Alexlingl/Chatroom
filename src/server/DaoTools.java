@@ -6,7 +6,7 @@ import java.util.Map;
 //定义一个处理用户登录信息的类
 public class DaoTools {
 	//内存用户信息数据库
-	private static Map<String,UserInfo>userDB=new HashMap();
+	private static Map<String,UserInfo>userDB=new HashMap<String,UserInfo>();
 	//静态块：模拟生成内存中的用户数据，用户名为1~10
 	//当程序启动时这段代码会自动执行向userDB放入数据
 	static {

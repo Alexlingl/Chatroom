@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public class ChatTools {
 	//保存线程处理的对象
-	private static ArrayList<ServerThread> stList=new ArrayList();
+	private static ArrayList<ServerThread> stList=new ArrayList<ServerThread>();
 	//不需要实例化类，因此构造器为私有
 	private ChatTools() {}
 	
