@@ -3,7 +3,8 @@ This is a chatroom project.It has client and server.
 
 If you want to know the specific implements about this project,you can read this blog
 
-https://blog.csdn.net/alexwym/article/details/81223764 
+The simple chatroom : https://blog.csdn.net/alexwym/article/details/81223764 
+The chatroom using netty framework : https://blog.csdn.net/Alexwym/article/details/90047132
 
 (If you don't want to read English introduction,you also can read this blog...)
 
