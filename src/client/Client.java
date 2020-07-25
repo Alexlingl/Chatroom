@@ -5,10 +5,11 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Client extends Thread{
-    InputStream input=null;
-    OutputStream output=null;
-    BufferedReader bufferinput=null;
-    Socket socket=null;
+    private InputStream input;
+    private OutputStream output;
+    private BufferedReader bufferinput;
+    private Socket socket;
+    private boolean stop = false;
 
     public Client(){
         //初始化时连接服务器
@@ -24,7 +25,7 @@ public class Client extends Thread{
     }
 
     public static void main(String[] args){
-        Client cl=new Client();
+        Client client=new Client();
     }
 
     public void login(){
@@ -39,10 +40,10 @@ public class Client extends Thread{
                 }
 
                 //发送消息
-                BufferedReader brName = new BufferedReader(new InputStreamReader(System.in));
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
                 String strName;
                 //控制台在读入数据时并不会自动添加换行符号
-                strName = brName.readLine()+"\r\n";
+                strName = bufferedReader.readLine()+"\r\n";
                 output.write(strName.getBytes());
                 output.flush();
                 Login++;
@@ -73,8 +74,18 @@ public class Client extends Thread{
         //获取消息
         try {
             while(true){
-                if((line=bufferinput.readLine())!=null){
+            	line=bufferinput.readLine();
+                if(line!=null){
                     System.out.println(line);
+                	//判断当前信息是否是服务端关闭连接的信息
+                	if((line.equals("您输入的账号密码有误！"))||(line.equals("您已下线！"))){
+//                		System.out.println("Enter");
+                		this.stop = true;
+                		socket.close();
+                		//如果是，则停止程序
+                		System.exit(0);
+                		return;
+                	}
                 }
             }
         } catch (IOException e) {
@@ -92,16 +103,22 @@ public class Client extends Thread{
     }
 
     public void run() {
-        while(true){                //发送消息
-            BufferedReader brName = new BufferedReader(new InputStreamReader(System.in));
+        while(true){   
+        	//判断当前服务端是否已关闭客户端的Socket连接
+//        	if(this.stop==true){
+//        		//如果是，则停止程序
+//        		break;
+//        	}
+        	//发送消息
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             String strName;
             //控制台在读入数据时并不会自动添加换行符号
             try {
-                strName = brName.readLine()+"\r\n";
+                strName = bufferedReader.readLine()+"\r\n";
                 output.write(strName.getBytes());
                 output.flush();
             } catch (IOException e) {
-                e.printStackTrace();
+//                e.printStackTrace();
             }
         }
     }

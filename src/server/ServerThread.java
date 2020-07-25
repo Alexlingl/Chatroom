@@ -13,7 +13,7 @@ import java.net.Socket;
  */
 public class ServerThread extends Thread{
 	private Socket client;//线程中的处理对象
-	private OutputStream ous;//输出流对象
+	private OutputStream outputStream;//输出流对象
 	private UserInfo user;//用户信息对象
 	
 	public ServerThread(Socket client) {
@@ -36,15 +36,15 @@ public class ServerThread extends Thread{
 	//在显示屏中打印信息，例如"用户名"、"密码"等等
 	public void sendMsg2Me(String msg) throws IOException {
 		msg+="\r\n";
-		ous.write(msg.getBytes());
-		ous.flush();
+		outputStream.write(msg.getBytes());
+		outputStream.flush();
 	}
 	
 	
 	private void processSocket() throws IOException {
 		// TODO Auto-generated method stub
 		InputStream ins=client.getInputStream();
-		ous=client.getOutputStream();
+		outputStream=client.getOutputStream();
 		BufferedReader brd=new BufferedReader(new InputStreamReader(ins));
 		
 		sendMsg2Me("欢迎你来聊天，请输入你的用户名：");
@@ -60,6 +60,7 @@ public class ServerThread extends Thread{
 		boolean loginState=DaoTools.checkLogin(user);
 		if(!loginState) {
 			//如果不存在这个账号则关闭
+			sendMsg2Me("您输入的账号密码有误！");
 			this.closeMe();
 			return;
 		}
@@ -70,14 +71,15 @@ public class ServerThread extends Thread{
 			ChatTools.castMsg(this.user, input);
 			input=brd.readLine();
 		}
+		sendMsg2Me("您已下线！");
 		ChatTools.castMsg(this.user, "bye");
 		this.closeMe();
 	}
 	
 	//关闭当前客户机与服务器的连接。
 	public void closeMe() throws IOException {
+		System.out.println("try to close clinet connection.");
 		client.close();
 	}
-	
 	
 }

@@ -19,9 +19,14 @@ public class DaoTools {
 	}
 	
 	public static boolean checkLogin(UserInfo user) {
-		//在只验证用户名是否存在
 		if(userDB.containsKey(user.getName())) {
-			return true;
+//			System.out.println("userName=" + user.getName() + "  userPassword=" + user.getPassword());
+			UserInfo rightUserInfo = userDB.get(user.getName());
+//			System.out.println("rightUserInfoName=" + rightUserInfo.getName() + " rightUserPassword=" + rightUserInfo.getPassword());
+			String rightUserPassword = rightUserInfo.getPassword();
+			if(rightUserPassword.equals(user.getPassword())){
+				return true;
+			}
 		}
 		System.out.println(user.getName()+"用户验证失败！");
 		return false;
