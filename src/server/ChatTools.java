@@ -14,9 +14,14 @@ public class ChatTools {
 	private ChatTools() {}
 	
 	//将一个客户对应的线程处理对象加入到队列中
-	public static void addClient(ServerThread st) throws IOException {
-		serverThreadList.add(st);//将这个线程处理对象加入到队列中
-		castMsg(st.getOwerUser(),"我上线了！目前人数："+serverThreadList.size());
+	public static void addClient(ServerThread serverThread) throws IOException {
+		serverThreadList.add(serverThread);//将这个线程处理对象加入到队列中
+		castMsg(serverThread.getOwerUser(),"我上线了！目前人数："+serverThreadList.size());
+	}
+	
+	public static void removeClient(ServerThread serverThread) throws IOException{
+		castMsg(serverThread.getOwerUser(),"我下线了！目前人数："+serverThreadList.size());
+		serverThreadList.remove(serverThread);
 	}
 	
 	//发送消息给其他用户

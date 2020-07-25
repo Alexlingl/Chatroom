@@ -72,13 +72,13 @@ public class ServerThread extends Thread{
 			input=brd.readLine();
 		}
 		sendMsg2Me("您已下线！");
-		ChatTools.castMsg(this.user, "bye");
 		this.closeMe();
 	}
 	
 	//关闭当前客户机与服务器的连接。
 	public void closeMe() throws IOException {
 		System.out.println("try to close clinet connection.");
+		ChatTools.removeClient(this);
 		client.close();
 	}
 	

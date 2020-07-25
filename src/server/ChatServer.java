@@ -23,8 +23,12 @@ public class ChatServer {
 			Socket socket=server.accept();
 			System.out.println("进入了一个客户机连接："+socket.getRemoteSocketAddress().toString());
 			//启动一个线程去处理这个对象
-			ServerThread serverThread=new ServerThread(socket);
-			serverThread.start();
+//			ServerThread serverThread=new ServerThread(socket);
+//			serverThread.start();
+			
+			//创建一个线程，并加入线程池
+			ChatServerHandlerExcutePool singleExecutor = new ChatServerHandlerExcutePool(50,10000);
+			singleExecutor.execute(new ServerThread(socket));
 		}
 	}
 }

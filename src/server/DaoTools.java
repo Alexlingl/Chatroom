@@ -11,10 +11,10 @@ public class DaoTools {
 	//当程序启动时这段代码会自动执行向userDB放入数据
 	static {
 		for(int i=1;i<=10;i++) {
-			UserInfo user=new UserInfo();
-			user.setName("user"+i);
-			user.setPassword("psw"+i);
-			userDB.put(user.getName(), user);
+			UserInfo userInfo=new UserInfo();
+			userInfo.setName("user"+i);
+			userInfo.setPassword("psw"+i);
+			userDB.put(userInfo.getName(), userInfo);
 		}
 	}
 	
